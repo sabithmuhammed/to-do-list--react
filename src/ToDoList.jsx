@@ -8,16 +8,17 @@ function ToDoList() {
     setNewTast(event.target.value);
   }
 
-  function addTask() {
+  function addTask(e) {
+    e.preventDefault()
     if (newTask.trim()) {
-      setTasks((t) => [...t, { title: newTask, check: false }]);
-      localStorage.setItem('to-do-app',JSON.stringify([...tasks, { title: newTask, check: false }]))
+      setTasks((t) => [{ title: newTask, check: false }, ...t]);
+      localStorage.setItem('to-do-app', JSON.stringify([...tasks, { title: newTask, check: false }]))
       setNewTast("");
     }
   }
   function removeTask(index) {
     setTasks((t) => t.filter((_, i) => i !== index));
-    localStorage.setItem('to-do-app',JSON.stringify(tasks.filter((_, i) => i !== index)))
+    localStorage.setItem('to-do-app', JSON.stringify(tasks.filter((_, i) => i !== index)))
 
   }
 
@@ -29,7 +30,7 @@ function ToDoList() {
         updatedArray[index],
       ];
       setTasks(updatedArray);
-      localStorage.setItem('to-do-app',JSON.stringify(updatedArray))
+      localStorage.setItem('to-do-app', JSON.stringify(updatedArray))
     }
   }
 
@@ -41,29 +42,29 @@ function ToDoList() {
         updatedArray[index + 1],
       ];
       setTasks(updatedArray);
-      localStorage.setItem('to-do-app',JSON.stringify(updatedArray))
+      localStorage.setItem('to-do-app', JSON.stringify(updatedArray))
     }
   }
   function handleCheck(index) {
     const updatedArray = [...tasks];
     updatedArray[index].check = !updatedArray[index].check;
     setTasks(updatedArray);
-    localStorage.setItem('to-do-app',JSON.stringify(updatedArray))
+    localStorage.setItem('to-do-app', JSON.stringify(updatedArray))
   }
   return (
     <div className="to-do-list">
       <h1>To-Do-List</h1>
-      <div className="input-div">
+      <form className="input-div" onSubmit={addTask}>
         <input
           type="text"
           placeholder="Enter a task..."
           value={newTask}
           onChange={handleInputChange}
         />
-        <button className="add-btn" onClick={addTask}>
+        <button type="submit" className="add-btn">
           Add
         </button>
-      </div>
+      </form>
       <div className="task-container">
         {tasks.length ? (
           tasks.map((task, index) => (
@@ -77,7 +78,7 @@ function ToDoList() {
                   onChange={() => handleCheck(index)}
                 />
               </div>
-              <div className="task-text">{task.title}</div>
+              <div className={`task-text ${task.check ? 'completed' : ''}`}>{task.title}</div>
               <div className="task-actions">
                 <button className="action" onClick={() => moveUp(index)}>
                   👆
