@@ -1,5 +1,5 @@
 {
-  "homepage": "https://sabithmuhammed.github.io/to-do-list-react",
+  "homepage": "https://sabithmuhammed.github.io/to-do-list--react",
   "name": "todolist",
   "private": false,
   "version": "0.0.0",
@@ -8,7 +8,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist" ,
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=./",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
