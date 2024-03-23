@@ -10,6 +10,7 @@ function ToDoList() {
 
   function addTask(e) {
     e.preventDefault()
+    
     if (newTask.trim()) {
       setTasks((t) => [{ title: newTask, check: false }, ...t]);
       localStorage.setItem('to-do-app', JSON.stringify([...tasks, { title: newTask, check: false }]))
