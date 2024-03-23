@@ -1,7 +1,7 @@
 {
-  "homepage": "https://sabithmuhammed.github.io/to-do-list--react",
+  "homepage": "https://sabithmuhammed.github.io/to-do-list--react/",
   "name": "todolist",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
