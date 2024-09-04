@@ -31,7 +31,8 @@ h1{
   background-color: white;
   margin: 20px 0;
   display: flex;
-  height: 60px;
+  min-height: 60px;
+  height: auto;
   border-radius: 5px;
   align-items: center;
   justify-content: space-between;
@@ -72,14 +73,18 @@ input[type="text"]:focus{
   cursor: pointer;
 }
 .task-container{
-  width: 600px;
+  max-width: 600px;
   
 }
+
 .task-text{
   font-size: 18px;
   font-weight: 500;
   flex-grow: 1;
   padding: 0 15px;
+  word-break: break-word;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .action{
@@ -105,4 +110,9 @@ input[type="text"]:focus{
 }
 .completed{
   text-decoration: line-through;
+}
+
+.task-actions{
+  display: flex;
+  flex-shrink: 0;
 }
