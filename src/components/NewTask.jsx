@@ -30,8 +30,9 @@ const NewTask = ({ tasks, setTasks, writeToLocalStorage }) => {
         if (newTask.trim()) {
             setTasks((t) => [{ title: newTask, check: false, priority }, ...t]);
             writeToLocalStorage([
-                ...tasks,
                 { title: newTask, check: false, priority },
+                ...tasks
+                
             ]);
             setNewTask("");
             setPriority("Low");
