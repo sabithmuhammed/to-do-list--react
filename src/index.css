@@ -32,6 +32,7 @@ h1{
   margin: 20px 0;
   display: flex;
   min-height: 60px;
+width: 600px;
   height: auto;
   border-radius: 5px;
   align-items: center;
