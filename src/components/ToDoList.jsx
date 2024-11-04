@@ -33,6 +33,7 @@ function ToDoList() {
         reorderedItems.splice(result.destination.index, 0, removed);
 
         setTasks(reorderedItems);
+        writeToLocalStorage(reorderedItems);
     }
 
     return (
