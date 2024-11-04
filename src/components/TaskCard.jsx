@@ -82,6 +82,7 @@ const TaskCard = ({ task, index, setTasks, tasks, writeToLocalStorage }) => {
             text={task?.priority ? task.priority : "Low"}
             color={getPriorityColor(task.priority)}
             key={task.title + index}
+            className="select-none"
         >
             <div className="relative border-[1px] p-3 pt-6 rounded-lg border-gray-300">
                 <div
@@ -90,7 +91,7 @@ const TaskCard = ({ task, index, setTasks, tasks, writeToLocalStorage }) => {
                             ? "w-20"
                             : "w-12"
                     }`}
-                    onClick={() => handlePriorityToggle(task.priority, index)}
+                    onDoubleClick={() => handlePriorityToggle(task.priority, index)}
                 ></div>
                 <div className="flex gap-4 items-start">
                     <Checkbox
