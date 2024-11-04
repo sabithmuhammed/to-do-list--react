@@ -1,9 +1,15 @@
-import { ArrowDownOutlined, ArrowUpOutlined, CheckOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+    ArrowDownOutlined,
+    ArrowUpOutlined,
+    CheckOutlined,
+    DeleteOutlined,
+    EditOutlined,
+} from "@ant-design/icons";
 import { Badge, Button, Checkbox } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import React, { useState } from "react";
 
-const TaskCard = ({task,index,setTasks,tasks,writeToLocalStorage}) => {
+const TaskCard = ({ task, index, setTasks, tasks, writeToLocalStorage }) => {
     const [editIndex, setEditIndex] = useState(-1);
 
     function handleCheck(index) {
@@ -57,13 +63,35 @@ const TaskCard = ({task,index,setTasks,tasks,writeToLocalStorage}) => {
             return "red";
         }
     }
+
+    function handlePriorityToggle(priority, index) {
+        let newPriority = "Low";
+        if (priority == "Moderate") {
+            newPriority = "High";
+        } else if (priority == "Low") {
+            newPriority = "Moderate";
+        }
+        const updatedArray = [...tasks];
+        updatedArray[index].priority = newPriority;
+        setTasks(updatedArray);
+        writeToLocalStorage(updatedArray);
+    }
+
     return (
         <Badge.Ribbon
             text={task?.priority ? task.priority : "Low"}
             color={getPriorityColor(task.priority)}
             key={task.title + index}
         >
-            <div className="border-[1px] p-3 pt-6 rounded-lg border-gray-300">
+            <div className="relative border-[1px] p-3 pt-6 rounded-lg border-gray-300">
+                <div
+                    className={`absolute cursor-pointer z-10  top-0 -right-3 h-9 ${
+                        task?.priority && task.priority == "Moderate"
+                            ? "w-20"
+                            : "w-12"
+                    }`}
+                    onClick={() => handlePriorityToggle(task.priority, index)}
+                ></div>
                 <div className="flex gap-4 items-start">
                     <Checkbox
                         checked={task.check}
