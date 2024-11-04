@@ -1,4 +1,5 @@
 import { Progress } from "antd";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import Title from "antd/es/typography/Title";
 import Text from "antd/es/typography/Text";
 import React, { useEffect, useState } from "react";
@@ -22,6 +23,16 @@ function ToDoList() {
 
     function writeToLocalStorage(data) {
         localStorage.setItem("to-do-app", JSON.stringify(data));
+    }
+
+    function handleOnDragEnd(result) {
+        if (!result.destination) return; // If dropped outside the list, do nothing
+
+        const reorderedItems = [...tasks];
+        const [removed] = reorderedItems.splice(result.source.index, 1);
+        reorderedItems.splice(result.destination.index, 0, removed);
+
+        setTasks(reorderedItems);
     }
 
     return (
@@ -51,17 +62,64 @@ function ToDoList() {
                         />
                     </div>
                     {tasks.length ? (
-                        tasks.map((task, index) => (
-                            <TaskCard
-                                task={task}
-                                setTasks={setTasks}
-                                tasks={tasks}
-                                writeToLocalStorage={writeToLocalStorage}
-                                index={index}
-                                key={task.title + index}
-                            />
-                        ))
+                        <DragDropContext onDragEnd={handleOnDragEnd}>
+                            <Droppable droppableId="todoList">
+                                {(provided) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                    >
+                                        {tasks.map((task, index) => (
+                                            <Draggable
+                                                key={task.title + index}
+                                                draggableId={task.title + index}
+                                                index={index}
+                                            >
+                                                {(provided) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={{
+                                                            ...provided
+                                                                .draggableProps
+                                                                .style,
+                                                        }}
+                                                        className="mb-3"
+                                                    >
+                                                        <TaskCard
+                                                            task={task}
+                                                            setTasks={setTasks}
+                                                            tasks={tasks}
+                                                            writeToLocalStorage={
+                                                                writeToLocalStorage
+                                                            }
+                                                            index={index}
+                                                            key={
+                                                                task.title +
+                                                                index
+                                                            }
+                                                        />
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </DragDropContext>
                     ) : (
+                        // tasks.map((task, index) => (
+                        //     <TaskCard
+                        //         task={task}
+                        //         setTasks={setTasks}
+                        //         tasks={tasks}
+                        //         writeToLocalStorage={writeToLocalStorage}
+                        //         index={index}
+                        //         key={task.title + index}
+                        //     />
+                        // ))
                         <Text className="text-center">
                             No pending tasks, try adding some!
                         </Text>
