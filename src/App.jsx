@@ -1,9 +1,11 @@
 import { Flex, Spin } from "antd";
 import { lazy, Suspense } from "react";
-const ReleaseNote = lazy(() => import("./components/ReleaseNote"));
+import Navbar from "./components/Navbar";
+import { useDarkMode } from "./context/DarkModeContext";
 const ToDoList = lazy(() => import("./components/ToDoList"));
 
 function App() {
+    const { isDarkMode } = useDarkMode();
     return (
         <Suspense
             fallback={
@@ -17,9 +19,12 @@ function App() {
                 </Flex>
             }
         >
-            {" "}
-            <ReleaseNote />
-            <ToDoList />;
+            <div className={isDarkMode ? "dark" : ""}>
+                <div className="h-dvh w-full overflow-auto  dark:bg-[#121212]">
+                    <Navbar />
+                    <ToDoList />
+                </div>
+            </div>
         </Suspense>
     );
 }
