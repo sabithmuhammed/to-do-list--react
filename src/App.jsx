@@ -13,7 +13,7 @@ function App() {
                     align="center"
                     justify="center"
                     gap="middle"
-                    className="w-full h-dvh"
+                    className="w-full h-dvh dark:bg-[#121212]"
                 >
                     <Spin size="large" />
                 </Flex>
