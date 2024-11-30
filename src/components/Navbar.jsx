@@ -1,7 +1,4 @@
-import {
-    MoonFilled,
-    SunFilled,
-} from "@ant-design/icons";
+import { MoonFilled, SunFilled } from "@ant-design/icons";
 import { Button, Switch } from "antd";
 import React from "react";
 import { useDarkMode } from "../context/DarkModeContext";
@@ -14,7 +11,7 @@ const Navbar = () => {
             <div className="flex items-center gap-2 text-neutral-500 dark:text-neutral-300">
                 <SunFilled />
                 <Switch
-                    defaultChecked
+                    checked={isDarkMode}
                     size="small"
                     style={{ backgroundColor: isDarkMode ? "#164c7e" : "" }}
                     onChange={toggleDarkMode}

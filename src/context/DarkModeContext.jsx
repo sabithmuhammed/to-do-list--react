@@ -5,10 +5,9 @@ const DarkModeContext = createContext();
 export const DarkModeProvider = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         // Check user's preference from localStorage or system theme
-        return (
-            localStorage.getItem("dark-mode") === "true" ||
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-        );
+        return localStorage.getItem("dark-mode")
+            ? localStorage.getItem("dark-mode") === "true"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
     });
 
     useEffect(() => {

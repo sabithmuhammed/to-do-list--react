@@ -19,11 +19,9 @@ function App() {
                 </Flex>
             }
         >
-            <div className={isDarkMode ? "dark" : ""}>
-                <div className="h-dvh w-full overflow-auto  dark:bg-[#121212]">
-                    <Navbar />
-                    <ToDoList />
-                </div>
+            <div className="h-dvh w-full overflow-auto  dark:bg-[#121212]">
+                <Navbar />
+                <ToDoList />
             </div>
         </Suspense>
     );
